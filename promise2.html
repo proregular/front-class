@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increseAndPrint(n) {
+            return new Promise(function(resolve) {
+                setTimeout(function() {
+                    const increased = n + 1;
+                    console.log(`increased: ${increased}`);
+                    resolve(increased);
+                }, 1000);
+            });
+        }
+
+        increseAndPrint(0)
+        .then(function(data) {
+            console.log(`data: ${data}`);
+            return increseAndPrint(data);
+        }).then(function(data2) {
+            console.log(`data2: ${data2}`);
+            return increseAndPrint(data2);
+        }).then(function(data3) {
+            console.log(`data3: ${data3}`);
+        });
+    </script>
+</body>
+</html>

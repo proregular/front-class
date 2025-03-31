@@ -15,6 +15,17 @@
             createIconEditor(document.body, 16, 16);
         });
 
+        const convertRgbToHex = rgb =>`#${rgb.match(/\d+/g).map(x => (+x).toString(16).padStart(2,0)).join('')}`;
+
+        const getHEX = (RGB) => {  
+            const colors = RGB.replaceAll(' ', '').replace('rgb(', '').replace(')', '').split(',');
+            
+            return '#' + (RGB && colors.map(color => Number(color).toString(16)
+                                                                  .padStart(2, '0')
+                                        ).join('')
+                                );
+        } 
+
         function createIconEditor(parent, nx, ny) {
             //input-color
             const $color = elt('input', { type: 'color' });
@@ -37,7 +48,15 @@
                 for(let i2=0; i2<nx; i2++) {
                     const td = elt('td');
                     td.addEventListener('click', e => {
-                        e.target.style.backgroundColor = $color.value;
+
+                        if(e.target.style.backgroundColor !== '' 
+                        && e.target.style.backgroundColor !== 'rgb(255, 255, 255)' 
+                        && convertRgbToHex(e.target.style.backgroundColor) === $color.value) {
+                            e.target.style.backgroundColor = ''; 
+                        } else {
+                            e.target.style.backgroundColor = $color.value; 
+                        }
+                                               
                     });
                     cells.push(td);
                     tr.appendChild(td);

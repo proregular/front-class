@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function increseAndPrint(n) {
+            return new Promise(function(resolve, reject) {
+                setTimeout(function() {
+                    if(n == 2) {
+                        reject('에러발생');
+                    }
+                    const increased = n + 1;
+                    console.log(`increased: ${increased}`);
+                    resolve(increased);
+                }, 1000);
+            });
+        }
+        //async - await - Promise 객체 >> resolve
+        //async - try/catch - Promise 객체 >> reject
+        async function _call() {
+            try {
+                const data1 = await increseAndPrint(0);
+                const data2 = await increseAndPrint(data1);
+                const data3 = await increseAndPrint(data2);
+                console.log(`data3: ${data3}`);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
+        _call();
+
+    </script>
+</body>
+</html>

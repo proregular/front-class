@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const arr = [ 10, 20, 30 ];
+        arr.push(40);
+        console.log(arr.length);
+        const sum = arr.reduce(function(acc, cur) {
+            return acc + cur;
+        });
+        const multiply = arr.reduce(function(acc, cur) {
+            return acc * cur;
+        })
+        console.log(`sum: ${sum}`);
+        console.log(`multifly: ${multiply}`);
+
+
+        const myArr = {
+            '0': 10,
+            '1': 20,
+            '2': 30,
+            'length': 3,
+            'push': function(val) {                
+                this[this.length++] = val;                
+            },
+            'reduce': function( cb ) {
+                let acc = cb(this[0], this[1]);
+                let i = 2;
+                
+                for(; i<this.length; i++) {                                        
+                    acc = cb(acc , this[i]);
+                }
+                return acc;
+            }
+        };
+        myArr.push(40);
+        console.log(myArr.length);
+
+        const mySum = myArr.reduce(function(acc, cur) {
+            return acc + cur;
+        });
+        console.log(`mySum: ${mySum}`);
+    </script>
+</body>
+</html>
